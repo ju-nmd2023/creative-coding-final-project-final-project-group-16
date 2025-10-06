@@ -1,23 +1,49 @@
 // This code was inspired by Garrit's noise example code
-function setup() {
-  createCanvas(innerWidth, innerHeight);
-  frameRate(20);
-}
+// This code was reused from Emma's individual portfolio
 
-const size = 10;
-const divider = 60;
-const numRows = innerHeight / size;
-const numCols = innerWidth / size;
+// function setup() {
+//   createCanvas(innerWidth, innerHeight);
+//   frameRate(20);
+// }
 
-let counter = 0;
+// const numRows = innerHeight / size;
+// const numCols = innerWidth / size;
 
-function draw() {
+// let counter = 0;
+
+// function drawBackground() {
+//   background(0, 61, 106);
+//   noStroke();
+//   const size = 10;
+//   const divider = 60;
+
+//   for (let y = -height / 2; y < height / 2; y += size) {
+//     for (let x = -width / 2; x < width / 2; x += size) {
+//       const value = noise(x / divider, y / divider, frameCounter * 0.01) * size;
+
+//       if (value < size / 2) {
+//         fill(0, 89, 155);
+//       } else {
+//         fill(0, 117, 204);
+//       }
+
+//       ellipse(x, y, value);
+//     }
+//   }
+
+//   counter += 0.01;
+// }
+
+function drawBackground() {
   background(0, 61, 106);
   noStroke();
 
-  for (let y = 0; y < numRows; y++) {
-    for (let x = 0; x < numCols; x++) {
-      const value = noise(x / divider, y / divider, counter) * size;
+  const size = 10;
+  const divider = 60;
+
+  for (let y = -height / 2; y < height / 2; y += size) {
+    for (let x = -width / 2; x < width / 2; x += size) {
+      const value = noise(x / divider, y / divider, frameCount * 0.01) * size;
 
       if (value < size / 2) {
         fill(0, 89, 155);
@@ -25,9 +51,7 @@ function draw() {
         fill(0, 117, 204);
       }
 
-      ellipse(size / 2 + x * size, size / 2 + y * size, value);
+      ellipse(x, y, value);
     }
   }
-
-  counter += 0.01;
 }
