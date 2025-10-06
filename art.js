@@ -1,61 +1,23 @@
+/*3D heart code: https://chatgpt.com/share/68e3c9a0-192c-8011-b60b-8a3a9b3e86be */
+
 let heart;
-let tex; // textur (grafik från createGraphics)
 
-let scaleNoise = 50;
-let resolution = 0.002;
-let numPoints = 100;
-
-let radius = 150;
-let numRings = 20;
-let counter = 0;
-
-function preload() {
-  heart = loadModel("Heart.obj", true);
+function preloadArt() {
+  heart = loadModel("Heart_UV.obj", true);
 }
-/*
-function setup() {
-  createCanvas(innerWidth, innerHeight, WEBGL);
 
-  // Skapa en offscreen-canvas för texturen
-  tex = createGraphics(400, 400);
- 
-}*/
+function setupArt() {
+  createCanvas(innerWidth, innerHeight);
+  createCanvas(innerWidth, innerHeight, WEBGL);
+}
 
 function drawArt() {
-  //  background(200);
-  tex.noFill();
-  tex.stroke(0);
-  tex.strokeWeight(1);
-  // --- RITA TEXTUREN PÅ OFFSCREEN-CANVASEN ---
-  tex.background(255);
-  tex.push();
-  tex.translate(tex.width / 2, tex.height / 2);
-  tex.rotate(counter * 0.02); // rotation av linjemönstret
+  ellipse(width / 2, height / 2, 100, 100);
 
-  for (let r = 0; r <= radius; r += radius / numRings) {
-    tex.beginShape();
-    for (let a = 0; a <= TAU; a += TAU / numPoints) {
-      let x = r * cos(a);
-      let y = r * sin(a);
-      let n = map(
-        noise(x * resolution, y * resolution),
-        0,
-        1,
-        -scaleNoise,
-        scaleNoise
-      );
-      tex.curveVertex(x + n, y + n);
-    }
-    tex.endShape(CLOSE);
-  }
-  tex.pop();
-  counter++;
-
-  // --- RITA HJÄRTAT MED TEXTUREN ---
-  rotateY(frameCount * 0.01);
+  rotateY(frameCount * 0.01); // rotation
   rotateX(frameCount * 0.01);
 
-  texture(tex); // applicera “ringar”-grafiken som textur
-  scale(2);
+  normalMaterial(); // color depends on the light
+  scale(2); // size of the heart
   model(heart);
 }
