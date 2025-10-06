@@ -1,8 +1,8 @@
 let song;
 function preload() {
   // Ladda en .obj eller .stl fil (måste ligga i projektmappen)
-  heart = loadModel("Heart.obj", true);
   song = loadSound("sza.mp3");
+  heart = loadModel("Heart.obj", true);
 }
 
 function setup() {
