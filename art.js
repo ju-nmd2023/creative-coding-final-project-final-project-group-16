@@ -12,20 +12,20 @@ let counter = 0;
 function preload() {
   heart = loadModel("Heart.obj", true);
 }
-
+/*
 function setup() {
   createCanvas(innerWidth, innerHeight, WEBGL);
 
   // Skapa en offscreen-canvas för texturen
   tex = createGraphics(400, 400);
+ 
+}*/
+
+function drawArt() {
+  //  background(200);
   tex.noFill();
   tex.stroke(0);
   tex.strokeWeight(1);
-}
-
-function draw() {
-  background(200);
-
   // --- RITA TEXTUREN PÅ OFFSCREEN-CANVASEN ---
   tex.background(255);
   tex.push();

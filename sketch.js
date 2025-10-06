@@ -9,6 +9,8 @@ function setup() {
   createCanvas(innerWidth, innerHeight, WEBGL);
   frameRate(20);
   colorMode(RGB);
+  tex = createGraphics(400, 400);
+
   song.play();
 }
 
