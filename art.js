@@ -1,8 +1,21 @@
+let heart;
+
+function preload() {
+  // Ladda en .obj eller .stl fil (måste ligga i projektmappen)
+  heart = loadModel("Heart.obj", true);
+}
+
 function setup() {
-  createCanvas(innerWidth, innerHeight);
+  createCanvas(innerWidth, innerHeight, WEBGL);
 }
 
 function draw() {
-  background(220);
-  ellipse(width / 2, height / 2, 100, 100);
+  background(200);
+
+  rotateY(frameCount * 0.01); // rotera modellen
+  rotateX(frameCount * 0.01);
+
+  normalMaterial(); // enkel färg baserad på ljus
+  scale(2); // ändra storlek om modellen är för liten/stor
+  model(heart);
 }
