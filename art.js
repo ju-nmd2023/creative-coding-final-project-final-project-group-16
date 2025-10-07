@@ -40,7 +40,7 @@ function generateStripesTexture() {
 }
 
 function drawArt() {
-  background(255);
+  //   background(255);
 
   // Add soft lighting so texture appears properly
   ambientLight(150);
