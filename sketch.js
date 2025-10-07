@@ -17,6 +17,11 @@ function draw() {
   drawArt();
 }
 
+// These 7 lines of code was adapted from https://editor.p5js.org/p5/sketches/Sound:_Load_and_Play_Sound Accessed: 07-10-2025
 function mousePressed() {
-  song.play();
+  if (song.isPlaying()) {
+    song.stop();
+  } else {
+    song.play();
+  }
 }
