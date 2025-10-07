@@ -1,52 +1,58 @@
+/*3D heart code: https://chatgpt.com/share/68e3c9a0-192c-8011-b60b-8a3a9b3e86be */
+/*Chatgpt helped us with the stripes texure, that is from Nellie's individual assignment: https://chatgpt.com/share/68e3f9ca-c36c-8011-a58a-818878d3da9c */
+
 let heart;
-let tex; // textur (grafik från createGraphics)
+let stripeGraphics;
 
-let scaleNoise = 50;
-let resolution = 0.002;
-let numPoints = 100;
+function preloadArt() {
+  heart = loadModel("Heart_UV.obj", true);
+}
 
-let radius = 150;
-let numRings = 20;
-let counter = 0;
+function setupArt() {
+  createCanvas(innerWidth, innerHeight, WEBGL);
 
-// function preload() {
-//   // Ladda en .obj eller .stl fil (måste ligga i projektmappen)
-//   heart = loadModel("Heart.obj", true);
-// }
+  // Create offscreen texture
+  stripeGraphics = createGraphics(512, 512);
+  stripeGraphics.noiseDetail(4, 0.5);
+  generateStripesTexture();
+}
 
-// function setup() {
-//   createCanvas(innerWidth, innerHeight, WEBGL);
-//   colorMode(RGB);
-// }
+function generateStripesTexture() {
+  stripeGraphics.background(255);
+  stripeGraphics.stroke(0);
+  stripeGraphics.noFill();
+
+  let scale = 0.02; // controls irregularity
+  let spacing = 6; // controls stripe spacing
+  let cols = stripeGraphics.width;
+  let rows = stripeGraphics.height;
+
+  // Draw irregular horizontal stripes using Perlin noise
+  for (let y = 0; y < rows; y += spacing) {
+    stripeGraphics.beginShape();
+    for (let x = 0; x < cols; x++) {
+      let n = noise(x * scale, y * scale);
+      let offset = map(n, 0, 1, -10, 10);
+      stripeGraphics.vertex(x, y + offset);
+    }
+    stripeGraphics.endShape();
+  }
+}
 
 function drawArt() {
-  //   background(0, 0, 0);
-  //   clear();
+  background(255);
 
-  // --- RITA TEXTUREN PÅ OFFSCREEN-CANVASEN ---
-  tex.background(255);
-  tex.push();
-  tex.translate(tex.width / 2, tex.height / 2);
-  tex.rotate(counter * 0.02); // rotation av linjemönstret
+  // Add soft lighting so texture appears properly
+  ambientLight(150);
+  directionalLight(255, 255, 255, 0.25, 0.25, -1);
 
-  for (let r = 0; r <= radius; r += radius / numRings) {
-    tex.beginShape();
-    for (let a = 0; a <= TAU; a += TAU / numPoints) {
-      let x = r * cos(a);
-      let y = r * sin(a);
-      let n = map(noise(x * resolution, y * resolution), 0, 1, -scaleNoise, scaleNoise);
-      tex.curveVertex(x + n, y + n);
-    }
-    tex.endShape(CLOSE);
-  }
-  tex.pop();
-  counter++;
-
-  // --- RITA HJÄRTAT MED TEXTUREN ---
+  // Rotate heart for view
   rotateY(frameCount * 0.01);
   rotateX(frameCount * 0.01);
 
-  texture(tex); // applicera “ringar”-grafiken som textur
+  // Apply stripes texture
+  texture(stripeGraphics);
+  noStroke();
   scale(2);
   model(heart);
 }
