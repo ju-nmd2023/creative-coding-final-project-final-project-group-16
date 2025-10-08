@@ -1,22 +1,22 @@
 let song;
+
 function preload() {
-  // Ladda en .obj eller .stl fil (måste ligga i projektmappen)
   song = loadSound("sza.mp3");
-  //heart = loadModel("Heart.obj", true);
   preloadArt();
 }
 
 function setup() {
   createCanvas(innerWidth, innerHeight, WEBGL);
-  frameRate(20);
-  colorMode(RGB);
-
   setupArt();
+  setupBackground();
   song.play();
+  frameRate(30);
 }
 
 function draw() {
-  drawBackground();
+  drawBackground2D();
+  renderBackgroundIn3D();
+
   drawArt();
 }
 
@@ -27,4 +27,10 @@ function mousePressed() {
   } else {
     song.play();
   }
+}
+
+/*ChatGPT helped us to make sure that the background is far behind the heart, and to create function windowResized to make sure the background is filling the whole canvas. https://chatgpt.com/share/68e65701-9030-8011-b217-c7e38f16f7b5 */
+function windowResized() {
+  resizeCanvas(innerWidth, innerHeight);
+  bgGraphics = createGraphics(innerWidth, innerHeight);
 }

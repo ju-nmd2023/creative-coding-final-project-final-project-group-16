@@ -46,9 +46,12 @@ function drawArt() {
   ambientLight(150);
   directionalLight(255, 255, 255, 0.25, 0.25, -1);
 
+  rotateX(PI);
+
   // Rotate heart for view
-  rotateY(frameCount * 0.01);
-  rotateX(frameCount * 0.01);
+  rotateY(-frameCount * 0.01);
+
+  // rotateX(frameCount * 0.01);
 
   // Apply stripes texture
   texture(stripeGraphics);
