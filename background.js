@@ -88,7 +88,7 @@ function drawBackground2D() {
   }
 }
 
-// This function will draw the 2D background behind the 3D scene, ChatGPT: https://chatgpt.com/share/68e65701-9030-8011-b217-c7e38f16f7b5
+// This function will draw the 2D background behind the 3D scene, ChatGPT: https://chatgpt.com/share/68e65701-9030-8011-b217-c7e38f16f7b5 Accessed: 08-10-2025
 function renderBackgroundIn3D() {
   push();
   resetMatrix();

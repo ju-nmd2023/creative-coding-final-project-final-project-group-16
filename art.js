@@ -1,8 +1,9 @@
 /*3D heart code: https://chatgpt.com/share/68e3c9a0-192c-8011-b60b-8a3a9b3e86be */
-/*Chatgpt helped us with the stripes texure, that is from Nellie's individual assignment: https://chatgpt.com/share/68e3f9ca-c36c-8011-a58a-818878d3da9c */
+/*Chatgpt helped us with the stripes texure, that is from Nellie's individual portfolio: https://chatgpt.com/share/68e3f9ca-c36c-8011-a58a-818878d3da9c */
 
 let heart;
 let stripeGraphics;
+let prevScale = 0.5; //for smooth pulse
 
 function preloadArt() {
   heart = loadModel("Heart_UV.obj", true);
@@ -39,7 +40,7 @@ function generateStripesTexture() {
   }
 }
 
-function drawArt() {
+function drawArt(amplitudeLevel) {
   //   background(255);
 
   // Add soft lighting so texture appears properly
@@ -47,12 +48,16 @@ function drawArt() {
   directionalLight(255, 255, 255, 0.25, 0.25, -1);
 
   rotateX(PI);
-
   // Rotate heart for view
   rotateY(-frameCount * 0.01);
 
-  // rotateX(frameCount * 0.01);
+  //scaling for pulses
+  //Chatgpt helped us with this code: https://chatgpt.com/share/68e661c1-87b8-8011-9831-db7f08fdf076 Accessed: 08-10-2025
+  let targetScale = map(amplitudeLevel, 0, 0.5, 0.8, 2);
+  let heartScale = lerp(prevScale, targetScale, 0.1);
+  prevScale = heartScale;
 
+  scale(heartScale);
   // Apply stripes texture
   texture(stripeGraphics);
   noStroke();
