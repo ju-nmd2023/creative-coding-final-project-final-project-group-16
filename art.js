@@ -49,7 +49,9 @@ function drawArt(amplitudeLevel) {
 
   rotateX(PI);
   // Rotate heart for view
-  rotateY(-frameCount * 0.01);
+  //   rotateY(-frameCount * 0.01);
+  //This 1 line of code was adapted from https://www.perplexity.ai/search/detta-ar-min-kod-i-3-olika-js-5jNMQYX1TguHEQfhCCBuwQ?0=d#0 Accessed: 07-10-2025
+  rotateY(baseRotation);
 
   //scaling for pulses
   //Chatgpt helped us with this code: https://chatgpt.com/share/68e661c1-87b8-8011-9831-db7f08fdf076 Accessed: 08-10-2025

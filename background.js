@@ -1,5 +1,5 @@
 // This code was inspired by Garrit's noise example code
-// This code was reused from Emma's individual portfolio
+// This code was reused from Emma Viitanen's individual portfolio
 
 // function setup() {
 //   createCanvas(innerWidth, innerHeight);
