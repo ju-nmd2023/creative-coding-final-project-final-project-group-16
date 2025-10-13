@@ -1,3 +1,10 @@
+function preload() {
+  song = loadSound("sza.mp3");
+  myFont = loadFont("Lexend-Bold.ttf");
+  preloadArt();
+  handpose = ml5.handPose();
+}
+
 let song;
 let amplitude;
 
@@ -12,13 +19,6 @@ let baseRotation = 0;
 let defaultDirection = 0.01;
 
 let showText = true;
-
-function preload() {
-  myFont = loadFont("Lexend-Bold.ttf");
-  song = loadSound("sza.mp3");
-  preloadArt();
-  handpose = ml5.handPose();
-}
 
 function setup() {
   createCanvas(innerWidth, innerHeight, WEBGL);
