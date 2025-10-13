@@ -28,7 +28,7 @@ function setup() {
   handpose.detectStart(video, getHandsData);
 
   // song.loop();
-  song.play();
+  //   song.play();
 
   setupBackground();
   frameRate(30);
@@ -48,7 +48,7 @@ function draw() {
     let x = hands[0].index_finger_tip.x;
     if (lastX !== null) {
       let dx = x - lastX; // Dämpa rörelsen så att den känns mjuk men responsiv
-      rotationSpeed = lerp(rotationSpeed, dx * 0.005, 0.3);
+      rotationSpeed = lerp(rotationSpeed, dx * 0.005, 0.2);
     }
     lastX = x;
   } else {

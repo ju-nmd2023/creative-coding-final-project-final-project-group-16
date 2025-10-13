@@ -20,7 +20,7 @@ function setupArt() {
 
 function generateStripesTexture() {
   stripeGraphics.background(255);
-  stripeGraphics.stroke(0);
+  stripeGraphics.stroke(150);
   stripeGraphics.noFill();
 
   let scale = 0.02; // controls irregularity
