@@ -39,9 +39,14 @@ function draw() {
   drawBackground2D();
   renderBackgroundIn3D();
 
-  let level = 0;
+  // These 9 lines of code was adapted using copilot
   if (amplitude) {
-    level = amplitude.getLevel(); // will be 0 if nothing detected
+    let ampLevel = amplitude.getLevel();
+    if (typeof ampLevel === "number" && !isNaN(ampLevel)) {
+      level = ampLevel;
+    } else {
+      level = 0;
+    }
   }
   // These 15 lines of code was adapted from https://www.perplexity.ai/search/detta-ar-min-kod-i-3-olika-js-5jNMQYX1TguHEQfhCCBuwQ?0=d#1 Accessed: 11-10-2025
   // Kolla hand-positions och räkna ut swipe
