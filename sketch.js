@@ -9,6 +9,7 @@ let lastX = null;
 let defaultRotationSpeed = 0.01; // Standard långsam rotation (kan testas lägre eller högre)
 let rotationSpeed = 0;
 let baseRotation = 0;
+let defaultDirection = 0.01;
 
 function preload() {
   song = loadSound("sza.mp3");
@@ -48,15 +49,23 @@ function draw() {
     let x = hands[0].index_finger_tip.x;
     if (lastX !== null) {
       let dx = x - lastX; // Dämpa rörelsen så att den känns mjuk men responsiv
+
+      //   These 2 lines of code was adapted from https://www.perplexity.ai/search/now-the-default-rotation-is-to-xW55ldgzTQ.vUjpU30_3Kw#0 Accessed: 13-10-2025
+      // Detect swipe direction
+      if (Math.abs(dx) > 10) {
+        // Threshold to avoid jitters, adjust as needed
+        defaultDirection = dx > 0 ? 0.01 : -0.01; // Right swipe sets to right, left to left
+      }
+
       rotationSpeed = lerp(rotationSpeed, dx * 0.005, 0.2);
     }
     lastX = x;
   } else {
     // Glid långsamt tillbaka
-    rotationSpeed = lerp(rotationSpeed, 0, 0.05);
+    rotationSpeed = lerp(rotationSpeed, 0, 0.01);
   }
   // Lägg till rotationen
-  baseRotation += defaultRotationSpeed + rotationSpeed;
+  baseRotation += defaultDirection + defaultRotationSpeed + rotationSpeed;
   // Skicka baseRotation till drawArt istället för frameCount*0.01
 
   push();
