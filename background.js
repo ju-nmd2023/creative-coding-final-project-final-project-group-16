@@ -65,7 +65,7 @@ let bgGraphics;
 function setupBackground() {
   bgGraphics = createGraphics(innerWidth, innerHeight); // 2D layer
 }
-
+/*
 function drawBackground2D() {
   bgGraphics.background(0, 61, 106);
   bgGraphics.noStroke();
@@ -85,6 +85,55 @@ function drawBackground2D() {
 
       bgGraphics.ellipse(x, y, value);
     }
+  }
+}*/
+
+//ChatGPT helped us add the square and blurry style to it, with the help of a reference image made by 5amauria "Thermal Heat Map Gradient Wallpaper" on Pinterest https://chatgpt.com/share/68ecc6bf-f8d0-8011-8d8e-0749182dcc97, https://se.pinterest.com/pin/1025694883882951844/
+function drawBackground2D() {
+  // Deep ocean base — dark but not pure navy, with subtle green tone
+  bgGraphics.background(3, 40, 70);
+  bgGraphics.noStroke();
+
+  const size = 10;
+  const divider = 60;
+
+  for (let y = 0; y < height; y += size) {
+    for (let x = 0; x < width; x += size) {
+      const n = noise(x / divider, y / divider, frameCount * 0.01);
+      const value = n * size;
+
+      // Base deep ocean colors (blue with a green tint)
+      let oceanCol;
+      if (value < size / 2) {
+        oceanCol = color(0, 55, 85); // deep teal-navy
+      } else {
+        oceanCol = color(0, 85, 120); // richer mid-ocean tone
+      }
+
+      // Dynamic shimmer — mixes subtle teal and aqua highlights
+      const gridFactor = sin(x * 0.03 + y * 0.03 + frameCount * 0.02);
+      const blendColor = color(
+        0 + gridFactor * 20, // R: very low, to keep blue-green purity
+        80 + gridFactor * 40, // G: soft teal glow
+        150 + gridFactor * 70 // B: ocean blue shimmer
+      );
+
+      // Blend ocean and shimmer tones smoothly
+      const finalCol = lerpColor(oceanCol, blendColor, 0.3 + n * 0.25);
+      bgGraphics.fill(finalCol);
+
+      // Grid-style pixel shimmer (square waves)
+      bgGraphics.rect(x, y, value, value);
+    }
+  }
+
+  // Optional: subtle particle grain — underwater haze
+  for (let i = 0; i < 1500; i++) {
+    const nx = random(width);
+    const ny = random(height);
+    const alpha = random(5, 18);
+    bgGraphics.stroke(150, 210, 230, alpha); // soft aqua specks
+    bgGraphics.point(nx, ny);
   }
 }
 
