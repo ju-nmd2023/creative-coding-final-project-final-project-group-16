@@ -11,7 +11,10 @@ let rotationSpeed = 0;
 let baseRotation = 0;
 let defaultDirection = 0.01;
 
+let showText = true;
+
 function preload() {
+  myFont = loadFont("Lexend-Bold.ttf");
   song = loadSound("sza.mp3");
   preloadArt();
   handpose = ml5.handPose();
@@ -48,6 +51,17 @@ function draw() {
       level = 0;
     }
   }
+
+  if (showText) {
+    push();
+    textFont(myFont);
+    textAlign(CENTER, CENTER);
+    textSize(40);
+    fill(255);
+    text("PRESS FOR GOOD DAYS", 0, 200);
+    pop();
+  }
+
   // These 15 lines of code was adapted from https://www.perplexity.ai/search/detta-ar-min-kod-i-3-olika-js-5jNMQYX1TguHEQfhCCBuwQ?0=d#1 Accessed: 11-10-2025
   // Kolla hand-positions och räkna ut swipe
   if (hands.length > 0 && hands[0].index_finger_tip) {
@@ -82,8 +96,10 @@ function draw() {
 function mousePressed() {
   if (song.isPlaying()) {
     song.stop();
+    showText = true;
   } else {
     song.play();
+    showText = false;
   }
 }
 
