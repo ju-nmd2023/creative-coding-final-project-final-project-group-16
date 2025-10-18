@@ -8,14 +8,15 @@ function preload() {
 let song;
 let amplitude;
 
-// These 7 lines of code and line 15 was adapted from https://www.perplexity.ai/search/detta-ar-min-kod-i-3-olika-js-5jNMQYX1TguHEQfhCCBuwQ?0=d#1 Accessed: 11-10-2025
+// These 7 lines of code was adapted from https://www.perplexity.ai/search/detta-ar-min-kod-i-3-olika-js-5jNMQYX1TguHEQfhCCBuwQ?0=d#1 Accessed: 11-10-2025
 let handpose;
 let video;
 let hands = [];
 let lastX = null;
-let defaultRotationSpeed = 0.01; // Standard långsam rotation (kan testas lägre eller högre)
+let defaultRotationSpeed = 0.01; // Standard rotation speed
 let rotationSpeed = 0;
 let baseRotation = 0;
+
 let defaultDirection = 0.01;
 
 let showText = true;
@@ -30,9 +31,6 @@ function setup() {
   video.size(640, 480);
   video.hide();
   handpose.detectStart(video, getHandsData);
-
-  // song.loop();
-  //   song.play();
 
   setupBackground();
   frameRate(30);
@@ -63,16 +61,16 @@ function draw() {
   }
 
   // These 15 lines of code was adapted from https://www.perplexity.ai/search/detta-ar-min-kod-i-3-olika-js-5jNMQYX1TguHEQfhCCBuwQ?0=d#1 Accessed: 11-10-2025
-  // Kolla hand-positions och räkna ut swipe
+  // Check for hand position, and calculate swipe
   if (hands.length > 0 && hands[0].index_finger_tip) {
     let x = hands[0].index_finger_tip.x;
     if (lastX !== null) {
-      let dx = x - lastX; // Dämpa rörelsen så att den känns mjuk men responsiv
+      let dx = x - lastX; // Makes the movements soft but responsive
 
-      //   These 2 lines of code was adapted from https://www.perplexity.ai/search/now-the-default-rotation-is-to-xW55ldgzTQ.vUjpU30_3Kw#0 Accessed: 13-10-2025
+      // These 2 lines of code was adapted from https://www.perplexity.ai/search/now-the-default-rotation-is-to-xW55ldgzTQ.vUjpU30_3Kw#0 Accessed: 13-10-2025
       // Detect swipe direction
       if (Math.abs(dx) > 10) {
-        // Threshold to avoid jitters, adjust as needed
+        // Threshold to avoid jitters
         defaultDirection = dx > 0 ? 0.01 : -0.01; // Right swipe sets to right, left to left
       }
 
@@ -80,12 +78,12 @@ function draw() {
     }
     lastX = x;
   } else {
-    // Glid långsamt tillbaka
+    // slowy going back
     rotationSpeed = lerp(rotationSpeed, 0, 0.01);
   }
-  // Lägg till rotationen
+  // add rotation
   baseRotation += defaultDirection + defaultRotationSpeed + rotationSpeed;
-  // Skicka baseRotation till drawArt istället för frameCount*0.01
+  // Send baseRotation to drawArt instead of frameCount*0.01
 
   push();
   drawArt(level);

@@ -41,15 +41,12 @@ function generateStripesTexture() {
 }
 
 function drawArt(amplitudeLevel) {
-  //   background(255);
-
   // Add soft lighting so texture appears properly
   ambientLight(150);
   directionalLight(255, 255, 255, 0.25, 0.25, -1);
 
+  // Rotate heart
   rotateX(PI);
-  // Rotate heart for view
-  //   rotateY(-frameCount * 0.01);
   //This 1 line of code was adapted from https://www.perplexity.ai/search/detta-ar-min-kod-i-3-olika-js-5jNMQYX1TguHEQfhCCBuwQ?0=d#1 Accessed: 11-10-2025
   rotateY(baseRotation);
 

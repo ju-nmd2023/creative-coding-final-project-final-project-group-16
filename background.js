@@ -1,96 +1,13 @@
-// This code was inspired by Garrit's noise example code
-// This code was reused from Emma Viitanen's individual portfolio
-
-// function setup() {
-//   createCanvas(innerWidth, innerHeight);
-//   frameRate(20);
-// }
-
-// const numRows = innerHeight / size;
-// const numCols = innerWidth / size;
-
-// let counter = 0;
-
-// function drawBackground() {
-//   background(0, 61, 106);
-//   noStroke();
-//   const size = 10;
-//   const divider = 60;
-
-//   for (let y = -height / 2; y < height / 2; y += size) {
-//     for (let x = -width / 2; x < width / 2; x += size) {
-//       const value = noise(x / divider, y / divider, frameCounter * 0.01) * size;
-
-//       if (value < size / 2) {
-//         fill(0, 89, 155);
-//       } else {
-//         fill(0, 117, 204);
-//       }
-
-//       ellipse(x, y, value);
-//     }
-//   }
-
-//   counter += 0.01;
-// }
-
-/*
-function drawBackground() {
-  push();
-  translate(0, 0, -1000); // move the background far behind
-  background(0, 61, 106, 0); // transparent so it doesn’t clear depth buffer
-  noStroke();
-
-  const size = 10;
-  const divider = 60;
-
-  for (let y = -height / 2; y < height / 2; y += size) {
-    for (let x = -width / 2; x < width / 2; x += size) {
-      const value = noise(x / divider, y / divider, frameCount * 0.01) * size;
-
-      if (value < size / 2) {
-        fill(0, 89, 155);
-      } else {
-        fill(0, 117, 204);
-      }
-
-      ellipse(x, y, value);
-    }
-  }
-  pop();
-}*/
+// This code was reused from Emma Viitanen's individual portfolio, inspired by Garrit's noise example code
 
 let bgGraphics;
 
 function setupBackground() {
   bgGraphics = createGraphics(innerWidth, innerHeight); // 2D layer
 }
-/*
-function drawBackground2D() {
-  bgGraphics.background(0, 61, 106);
-  bgGraphics.noStroke();
-
-  const size = 10;
-  const divider = 60;
-
-  for (let y = 0; y < height; y += size) {
-    for (let x = 0; x < width; x += size) {
-      const value = noise(x / divider, y / divider, frameCount * 0.01) * size;
-
-      if (value < size / 2) {
-        bgGraphics.fill(0, 89, 155);
-      } else {
-        bgGraphics.fill(0, 117, 204);
-      }
-
-      bgGraphics.ellipse(x, y, value);
-    }
-  }
-}*/
 
 //ChatGPT helped us add the square and blurry style to it, with the help of a reference image made by 5amauria "Thermal Heat Map Gradient Wallpaper" on Pinterest https://chatgpt.com/share/68ecc6bf-f8d0-8011-8d8e-0749182dcc97, https://se.pinterest.com/pin/1025694883882951844/
 function drawBackground2D() {
-  // Deep ocean base — dark but not pure navy, with subtle green tone
   bgGraphics.background(3, 40, 70);
   bgGraphics.noStroke();
 
@@ -102,7 +19,7 @@ function drawBackground2D() {
       const n = noise(x / divider, y / divider, frameCount * 0.01);
       const value = n * size;
 
-      // Base deep ocean colors (blue with a green tint)
+      // Base deep ocean colors
       let oceanCol;
       if (value < size / 2) {
         oceanCol = color(0, 55, 85); // deep teal-navy
@@ -127,7 +44,7 @@ function drawBackground2D() {
     }
   }
 
-  // Optional: subtle particle grain — underwater haze
+  // subtle particle grain — underwater haze
   for (let i = 0; i < 1500; i++) {
     const nx = random(width);
     const ny = random(height);
